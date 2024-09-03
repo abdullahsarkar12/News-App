@@ -45,4 +45,35 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Architecture Components
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
+    // Coroutine
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Coroutine Life cycle scope
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v240)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.name)
+    implementation (libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+
+    // Glide
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
 }
