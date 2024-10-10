@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    //id("com.google.devtools.ksp")
 }
 
 android {
@@ -63,10 +64,8 @@ dependencies {
 
     // Retrofit
     implementation (libs.retrofit)
-    implementation (libs.converter.name)
     implementation (libs.converter.gson)
     implementation(libs.logging.interceptor)
-
 
     // Navigation
     implementation(libs.androidx.navigation.fragment)
@@ -74,6 +73,8 @@ dependencies {
 
     // Glide
     implementation (libs.glide)
-    annotationProcessor (libs.compiler)
+
+    // KSP
+    //ksp(libs.androidx.room.compiler)
 
 }
