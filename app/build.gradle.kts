@@ -59,6 +59,10 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    // Room KTX for Coroutine support
+    //implementation(libs.androidx.room.ktx)
+    implementation ("androidx.room:room-ktx:2.2.1")
+    //kapt ("androidx.room:room-compiler:2.2.1")
 
     // Coroutine
     implementation(libs.kotlinx.coroutines.android)
