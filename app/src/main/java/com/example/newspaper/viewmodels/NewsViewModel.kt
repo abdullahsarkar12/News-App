@@ -7,13 +7,17 @@ import com.example.newspaper.network.NewsResponse
 import com.example.newspaper.reposorities.NewsRepository
 import com.example.newspaper.util.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class NewsViewModel(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
 
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    var breakingNewsPage = 1
+    private var breakingNewsPage = 1
+
+    val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    private var searchNewsPage = 1
 
     init {
         getABreakingNews("us")
@@ -25,6 +29,18 @@ class NewsViewModel(
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
 
+     fun searchNews(searchQuery: String) = viewModelScope.launch {
+        searchNews.postValue(Resource.Loading())
+        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+        searchNews.postValue(handleSearchNewsResponse(response))
+    }
+
+    /*fun searchNews(searchQuery: String) = viewModelScope.launch {
+        searchNews.postValue(Resource.Loading())
+        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+        searchNews.postValue(handleSearchNewsResponse(response))
+    }*/
+
     private fun handleBreakingNewsResponse(response: retrofit2.Response<NewsResponse>): Resource<NewsResponse>{
         if (response.isSuccessful){
             response.body()?.let { resultResponse ->
@@ -33,4 +49,14 @@ class NewsViewModel(
         }
         return Resource.Error(response.message())
     }
+
+    private fun handleSearchNewsResponse(response: retrofit2.Response<NewsResponse>): Resource<NewsResponse>{
+        if (response.isSuccessful){
+            response.body()?.let { resultResponse ->
+                return Resource.Success(resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 }
