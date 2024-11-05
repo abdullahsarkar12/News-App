@@ -10,6 +10,9 @@
         android:name="com.example.newspaper.fragments.ArticleFragment"
         android:label="fragment_article"
         tools:layout="@layout/fragment_article">
+        <argument
+            android:name="article"
+            app:argType="com.example.newspaper.network.Article" />
     </fragment>
     <fragment
         android:id="@+id/breakingNewsFragment"

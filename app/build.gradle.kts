@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -87,4 +88,6 @@ dependencies {
     // KSP
     ksp(libs.androidx.room.compiler)
 
+    // Safe Args
+    //classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.3")
 }

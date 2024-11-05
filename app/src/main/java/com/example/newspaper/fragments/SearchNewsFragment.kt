@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newspaper.NewsActivity
+import com.example.newspaper.R
 import com.example.newspaper.adapters.NewsAdapter
 import com.example.newspaper.databinding.FragmentSearchNewsBinding
 import com.example.newspaper.util.Constants.Companion.SEARCH_NEWS_TIME_DELAY
@@ -40,6 +42,18 @@ class SearchNewsFragment : Fragment() {
 
         viewModel = (activity as NewsActivity).viewModel
         setupRecyclerView()
+
+        // Handle item click
+        newsAdapter.setOnItemClickListener {
+            // Handle item click
+            val bundle = Bundle().apply {
+                putSerializable("article", it)
+            }
+            findNavController().navigate(
+                R.id.action_searchNewsFragment_to_articleFragment,
+                bundle
+            )
+        }
 
         var job: Job? = null
         binding.etSearch.addTextChangedListener {editable->

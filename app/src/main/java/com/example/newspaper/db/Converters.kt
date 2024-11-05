@@ -6,7 +6,7 @@ import com.example.newspaper.network.Source
 class Converters {
     // Convert a Source object to a String
     @TypeConverter
-    fun fromSource(source: Source): String {
+    fun fromSource(source: Source): String? {
         return source.name
     }
 
