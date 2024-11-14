@@ -3,6 +3,7 @@ package com.example.newspaper.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newspaper.network.Article
 import com.example.newspaper.network.NewsResponse
 import com.example.newspaper.reposorities.NewsRepository
 import com.example.newspaper.util.Resource
@@ -35,12 +36,6 @@ class NewsViewModel(
         searchNews.postValue(handleSearchNewsResponse(response))
     }
 
-    /*fun searchNews(searchQuery: String) = viewModelScope.launch {
-        searchNews.postValue(Resource.Loading())
-        val response = newsRepository.searchNews(searchQuery, searchNewsPage)
-        searchNews.postValue(handleSearchNewsResponse(response))
-    }*/
-
     private fun handleBreakingNewsResponse(response: retrofit2.Response<NewsResponse>): Resource<NewsResponse>{
         if (response.isSuccessful){
             response.body()?.let { resultResponse ->
@@ -58,5 +53,19 @@ class NewsViewModel(
         }
         return Resource.Error(response.message())
     }
+
+    // Save article to database
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        newsRepository.upsert(article)
+    }
+
+    // Get saved news from database
+    fun getSavedNews() = newsRepository.getSavedNews()
+
+    // Delete article from database
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        newsRepository.deleteArticle(article)
+    }
+
 
 }
