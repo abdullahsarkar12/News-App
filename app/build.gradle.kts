@@ -1,6 +1,9 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -33,6 +36,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -45,4 +53,41 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Architecture Components
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    // Room KTX for Coroutine support
+    //implementation(libs.androidx.room.ktx)
+    implementation ("androidx.room:room-ktx:2.2.1")
+    //kapt ("androidx.room:room-compiler:2.2.1")
+
+    // Coroutine
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Coroutine Life cycle scope
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v240)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+
+    // Glide
+    implementation (libs.glide)
+
+    // KSP
+    ksp(libs.androidx.room.compiler)
+
+    // Safe Args
+    //classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.3")
 }
